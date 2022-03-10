@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@drawable/textbar"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp">
+
+    <CheckBox
+        android:id="@+id/check_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:text=""
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="255dp" />
+
+    <TextView
+        android:id="@+id/things_todo"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:gravity="center_vertical" />
+
+    <TextView
+        android:id="@+id/setTodo_time"
+        android:layout_width="100sp"
+        android:layout_height="50sp"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center|center_vertical" />
+
+
+
+</LinearLayout>
