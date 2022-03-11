@@ -8,27 +8,37 @@ public class todo {
 
     private Calendar timeOfSetTodo;
 
-    private StringBuffer mainTask;
+    private String mainTask;
 
     private boolean finished;
 
     public todo (String task) {
         timeOfSetTodo = Calendar.getInstance();
         timeOfSetTodo.setTimeInMillis(System.currentTimeMillis());
-        mainTask = new StringBuffer();
-        mainTask.append(task);
+        mainTask = new String(task);
         finished = false;
     }
 
     public String getTimeOfSetTodo () {
-        return timeOfSetTodo.get(Calendar.HOUR) + ":" + timeOfSetTodo.get(Calendar.MINUTE);
+        StringBuffer newStr = new StringBuffer();
+        newStr.append((timeOfSetTodo.get(Calendar.MONTH) + 1)+ " 月 " + timeOfSetTodo.get(Calendar.DATE) + " 日\n    " + timeOfSetTodo.get(Calendar.HOUR) + ":");
+        if(timeOfSetTodo.get(Calendar.MINUTE) < 10) {
+            newStr.append("0" + timeOfSetTodo.get(Calendar.MINUTE));
+        }
+        else {newStr.append(timeOfSetTodo.get(Calendar.MINUTE));}
+        return newStr.toString();
     }
 
     public String getTaskContent () {
-        return mainTask.toString();
+        return mainTask;
     }
 
     public boolean getTaskState () {
         return finished;
+    }
+
+    public boolean changeTaskContent(String str) {
+        mainTask = new String(str);
+        return true;
     }
 }

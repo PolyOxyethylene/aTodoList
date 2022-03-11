@@ -1,20 +1,45 @@
 package com.example.todolist;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.view.*;
-import android.widget.ArrayAdapter;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.todolist.todo;
 
 import java.util.List;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
+
+    // 为适配器添加触摸事件
+    // 新建内部接口
+    public interface OnItemClickListener{
+        void onItemClick(View view,int position);
+    }
+
+    public interface OnItemLongClickListener{
+        void onItemLongClick(View view,int position);
+    }
+
+    // 新建两个私有变量用于保存用户设置的监听器及其set方法
+    private OnItemClickListener mOnItemClickListener;
+    private OnItemLongClickListener mOnItemLongClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener){
+        this.mOnItemClickListener = mOnItemClickListener;
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener mOnItemLongClickListener) {
+        this.mOnItemLongClickListener = mOnItemLongClickListener;
+    }
+
+
 
     private List<todo> mTodoList;
 
@@ -23,12 +48,10 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         TextView setTodoTime;
         TextView taskContent;
         CheckBox checkTaskFinish;
-        boolean finished;
 
         public ViewHolder (View view) {
             super(view);
             todoListView = view;
-            finished = false;
             setTodoTime = (TextView) view.findViewById(R.id.setTodo_time);
             taskContent = (TextView) view.findViewById(R.id.things_todo);
             checkTaskFinish = (CheckBox) view.findViewById(R.id.check_finish);
@@ -44,13 +67,6 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.todolist_items, parent, false);
         final ViewHolder holder = new ViewHolder(view);
 
-        holder.taskContent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(view.getContext(), "原来你也玩原神", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         holder.checkTaskFinish.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -63,6 +79,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
                 }
             }
         });
+
         return holder;
     }
 
@@ -71,7 +88,28 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         todo aTodo = mTodoList.get(position);
         holder.setTodoTime.setText(aTodo.getTimeOfSetTodo());
         holder.taskContent.setText(aTodo.getTaskContent());
-        holder.finished = aTodo.getTaskState();
+
+        if(mOnItemClickListener != null) {
+            // 为todoListView设置监听器
+            holder.todoListView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = holder.getLayoutPosition();
+                    mOnItemClickListener.onItemClick(holder.todoListView, position);
+                }
+            });
+        }
+
+        if(mOnItemLongClickListener != null) {
+            holder.todoListView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    int position = holder.getLayoutPosition();
+                    mOnItemLongClickListener.onItemLongClick(holder.todoListView, position);
+                    return true;
+                }
+            });
+        }
     }
 
     @Override
@@ -84,42 +122,3 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
 
 
 
-
-//public class TodoAdapter extends ArrayAdapter<todo> {
-//
-//    private int resourceId;
-//
-//    public TodoAdapter (Context context, int textViewResourceId, List<todo> objects) {
-//        super(context, textViewResourceId, objects);
-//        resourceId = textViewResourceId;
-//    }
-//
-//    @Override
-//    public View getView (int position, View convertView, ViewGroup parents) {
-//        todo newTask = getItem(position);
-//        ViewHolder viewHolder;
-//        View view;
-//        if(convertView == null) {
-//            view = LayoutInflater.from(getContext()).inflate(resourceId, parents, false);
-//            viewHolder = new ViewHolder();
-//            viewHolder.mainTask = view.findViewById(R.id.things_todo);
-//            viewHolder.setTodoTime = view.findViewById(R.id.setTodo_time);
-//            view.setTag(viewHolder);
-//        }
-//        else {
-//            view = convertView;
-//            viewHolder = (ViewHolder) view.getTag();
-//        }
-////        TextView mainTask = (TextView) view.findViewById(R.id.show_todos_number);
-////        mainTask.setText(newTask.getTaskContent());
-//        return view;
-//    }
-//
-//    class ViewHolder {
-//
-//        TextView mainTask;
-//
-//        TextView setTodoTime;
-////        boolean finished;
-//    }
-//}

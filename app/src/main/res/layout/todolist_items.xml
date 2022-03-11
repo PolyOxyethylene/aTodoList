@@ -28,6 +28,7 @@
 
     <TextView
         android:id="@+id/setTodo_time"
+        android:textSize="12dp"
         android:layout_width="100sp"
         android:layout_height="50sp"
         android:layout_marginRight="20dp"
