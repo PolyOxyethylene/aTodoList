@@ -67,12 +67,14 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.todolist_items, parent, false);
         final ViewHolder holder = new ViewHolder(view);
 
+
         holder.checkTaskFinish.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(compoundButton.isChecked()) {
                     view.setBackgroundResource(R.drawable.textbar_checked);
+                    mTodoList.get(holder.getAdapterPosition()).setFinished(true);
                 }
                 else if(!compoundButton.isChecked()){
                     view.setBackgroundResource(R.drawable.textbar);
@@ -87,7 +89,8 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         todo aTodo = mTodoList.get(position);
         holder.setTodoTime.setText(aTodo.getTimeOfSetTodo());
-        holder.taskContent.setText(aTodo.getTaskContent());
+        holder.taskContent.setText(aTodo.getMainTask());
+//        if(aTodo.isFinished() == true) {holder.todoListView.setBackgroundResource(R.drawable.textbar_checked);}
 
         if(mOnItemClickListener != null) {
             // 为todoListView设置监听器
