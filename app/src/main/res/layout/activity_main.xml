@@ -5,23 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#02000000"
-    android:fitsSystemWindows="true"
     android:clipToPadding="true"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/recyclerview_finished"
         android:layout_width="345dp"
-        android:layout_height="505dp"
+        android:layout_height="280dp"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="40dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show_todos_number"
-        app:layout_constraintVertical_bias="0.012" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.043" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_unfinish"
+        android:layout_width="345dp"
+        android:layout_height="280dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <ImageButton
         android:id="@+id/Add_List"
@@ -43,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="待办"
         android:textSize="46sp"
@@ -55,10 +65,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="4dp"
         android:text="0 个待办"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appTitle"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/appTitle" />
 
     <ImageView
         android:id="@+id/empty"
@@ -69,9 +79,33 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.432"
         app:srcCompat="@drawable/notebook" />
 
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="117dp" />
+
+    <TextView
+        android:id="@+id/todos_finish_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已完成 0 件"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerview_finished"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerview_unfinish"
+        app:layout_constraintVertical_bias="0.571" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="428dp" />
 
 
 </android.support.constraint.ConstraintLayout>

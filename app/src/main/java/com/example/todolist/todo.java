@@ -79,6 +79,7 @@ public class todo extends LitePalSupport {
         else {return (month + 1) + " 月 " + date  + " 日\n   " + hour + ":" + minute;}
     }
 
+    // 用来进行两个待办事件的比较的，小于 10 的数字要补十位的 0
     public String getTimeOfSetTodoC() {
         StringBuffer tempText = new StringBuffer();
         if(month < 10) {tempText.append(0);}
@@ -107,5 +108,6 @@ public class todo extends LitePalSupport {
         minute = getTime.get(Calendar.MINUTE);
         second = getTime.get(Calendar.SECOND);
         mainTask = new String(task);
+        finished = false;
     }
 }
