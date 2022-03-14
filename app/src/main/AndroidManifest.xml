@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/todolist_r"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Todolist"
+        android:theme="@style/AppTheme.NoActionBar"
         >
 
         <activity
